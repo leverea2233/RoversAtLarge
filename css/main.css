@@ -484,8 +484,23 @@ body {
 }
 
 @media screen and (max-width: 768px) {
+    /* Ajustamos el panel para que el texto no se amontone arriba */
+    .panel {
+        padding: 6vh 8vw !important;
+        justify-content: flex-start !important;
+    }
+
+    /* Rescatamos los títulos "¿QUIÉNES SOMOS?" / "¿QUÉ HACEMOS?" */
+    .label {
+        font-size: 0.75rem !important;
+        margin-bottom: 1.2rem !important;
+        display: block !important;
+        letter-spacing: 3px !important;
+    }
+
     .inline-arrow {
-        font-size: 1.5rem;
+        font-size: 1.1rem;
+        margin-left: 8px;
     }
 
     #typewriter-text {
@@ -493,9 +508,10 @@ body {
         text-align: left;
     }
 
+    /* CORRECCIÓN CLAVE: Bajamos de 1.8rem a 1.3rem para que quepa en el cel */
     .big-text {
-        font-size: 1.8rem !important;
-        line-height: 1.2 !important;
+        font-size: 1.3rem !important;
+        line-height: 1.25 !important;
         text-align: left;
     }
 
