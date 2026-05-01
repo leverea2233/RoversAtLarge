@@ -129,13 +129,13 @@ function startFinalTypewriter() {
     type();
 }
 
-// --- PEGA ESTO HASTA EL FINAL DE TU ARCHIVO ---
+// --- Lógica del Formulario ---
 
 const form = document.getElementById("artist-form");
 
 if (form) {
     form.addEventListener("submit", async (e) => {
-        e.preventDefault(); // Evita que se abra la página de Formspree[cite: 2]
+        e.preventDefault(); 
         
         const data = new FormData(form);
         const response = await fetch(form.action, {
@@ -145,12 +145,9 @@ if (form) {
         });
 
         if (response.ok) {
-            // Muestra la pantalla negra de agradecimiento[cite: 2]
             const thanksOverlay = document.getElementById("thanks-overlay");
             thanksOverlay.classList.remove("hidden");
             thanksOverlay.style.display = "flex";
-            
-            // Inicia el typewriter de agradecimiento[cite: 2]
             startThanksTypewriter();
         } else {
             alert("Hubo un error al enviar. Por favor, inténtalo de nuevo.");
@@ -170,7 +167,6 @@ function startThanksTypewriter() {
             i++;
             setTimeout(type, 50);
         } else {
-            // Pausa de 3 segundos antes del segundo texto[cite: 3]
             setTimeout(() => {
                 instruction.classList.remove("hidden");
                 instruction.style.opacity = "1";
@@ -178,4 +174,19 @@ function startThanksTypewriter() {
         }
     }
     type();
+}
+
+// ADICIÓN FINAL: Ocultar la flecha orgánica al mover el scroll lateral[cite: 8]
+const horizontalScroll = document.querySelector('.horizontal-scroll-container');
+const inlineArrow = document.querySelector('.inline-arrow');
+
+if (horizontalScroll && inlineArrow) {
+    horizontalScroll.addEventListener('scroll', () => {
+        if (horizontalScroll.scrollLeft > 50) {
+            inlineArrow.style.opacity = '0';
+            inlineArrow.style.transition = 'opacity 0.5s ease';
+        } else {
+            inlineArrow.style.opacity = '1';
+        }
+    });
 }
