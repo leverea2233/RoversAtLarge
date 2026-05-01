@@ -190,3 +190,44 @@ if (horizontalScroll && inlineArrow) {
         }
     });
 }
+
+// Función para que la flecha sea presionable y haga scroll al segundo panel
+function scrollToNextPanel() {
+    const container = document.querySelector('.horizontal-scroll-container');
+    if (container) {
+        container.scrollTo({
+            left: window.innerWidth,
+            behavior: 'smooth'
+        });
+    }
+}
+
+// Detector para lanzar la animación de "asomado" una sola vez
+const peekObserver = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+        if (entry.isIntersecting) {
+            const wrapper = entry.target.querySelector('.horizontal-wrapper');
+            if (wrapper && !wrapper.classList.contains('animate-peek')) {
+                setTimeout(() => {
+                    wrapper.classList.add('animate-peek');
+                }, 600);
+            }
+        }
+    });
+}, { threshold: 0.4 });
+
+const targetSection = document.querySelector('.horizontal-scroll-container');
+if (targetSection) {
+    peekObserver.observe(targetSection);
+}
+
+// Ocultar la flecha nueva cuando el usuario ya empezó a scrollear
+if (targetSection) {
+    targetSection.addEventListener('scroll', () => {
+        const trigger = document.querySelector('.scroll-hint-trigger');
+        if (trigger) {
+            trigger.style.opacity = targetSection.scrollLeft > 50 ? '0' : '0.8';
+            trigger.style.pointerEvents = targetSection.scrollLeft > 50 ? 'none' : 'auto';
+        }
+    });
+}
